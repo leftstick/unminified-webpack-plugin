@@ -1,0 +1,23 @@
+{
+  "name": "unminified-webpack-plugin",
+  "version": "1.0.0",
+  "description": "NoMinifiedEmiterPlugin =======================",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leftstick/NoMinifiedEmiterPlugin.git"
+  },
+  "keywords": [
+    "unminified",
+    "webpack"
+  ],
+  "author": "Howard.Zuo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leftstick/NoMinifiedEmiterPlugin/issues"
+  },
+  "homepage": "https://github.com/leftstick/NoMinifiedEmiterPlugin#readme"
+}
