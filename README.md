@@ -29,9 +29,30 @@ npm install --save-dev unminified-webpack-plugin
 ## Usage ##
 
 ```javascript
+var path = require('path');
+var webpack = require('webpack');
+var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
 
+module.exports = {
+    entry: {
+        index: './src/index.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'library.min.js'
+    },
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
+        new UnminifiedWebpackPlugin()
+    ]
+};
 ```
 
+By doing as above, you will get two files `library.min.js` and `library.js`. No need execute `webpack` twice, it just works!^^
 
 ## LICENSE ##
 
