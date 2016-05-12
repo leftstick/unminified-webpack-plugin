@@ -6,6 +6,9 @@
   "scripts": {
     "test": "mocha"
   },
+  "files": [
+      "index.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/leftstick/NoMinifiedEmiterPlugin.git"
