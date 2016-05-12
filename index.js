@@ -3,6 +3,7 @@
 var webpack = require('webpack');
 var fs = require('fs');
 var path = require('path');
+var mkdirp = require('mkdirp');
 var resolve = path.resolve;
 var ModuleFilenameHelpers = require('webpack/lib/ModuleFilenameHelpers');
 
@@ -49,6 +50,7 @@ UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
             files = files.filter(ModuleFilenameHelpers.matchObject.bind(null, options));
             files.forEach(function(file) {
                 try {
+                    mkdirp.sync(resolve(compiler.options.output.path));
                     var out = resolve(compiler.options.output.path, getFileName(file));
                     var asset = compilation.assets[file];
                     fs.writeFileSync(out, asset.source(), {

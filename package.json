@@ -7,7 +7,7 @@
     "test": "mocha"
   },
   "files": [
-      "index.js"
+    "index.js"
   ],
   "repository": {
     "type": "git",
@@ -27,5 +27,8 @@
     "del": "^2.2.0",
     "mocha": "^2.4.5",
     "webpack": "^1.13.0"
+  },
+  "dependencies": {
+    "mkdirp": "^0.5.1"
   }
 }

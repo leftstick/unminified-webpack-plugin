@@ -23,7 +23,6 @@ describe('testing', function() {
 
     beforeEach(function() {
         del.sync([resolve(curDir, 'build')]);
-        fs.mkdirSync(resolve(curDir, 'build'));
     });
 
     it('ignoring while no UglifyJsPlugin specified', function(done) {
