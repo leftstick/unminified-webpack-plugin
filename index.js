@@ -1,7 +1,23 @@
 'use strict';
 
 var webpack = require('webpack');
+var fs = require('fs');
+var path = require('path');
+var resolve = path.resolve;
 var ModuleFilenameHelpers = require('webpack/lib/ModuleFilenameHelpers');
+
+
+var getFileName = function(name) {
+    var minIndex = name.indexOf('min');
+    if (minIndex > -1) {
+        return name.substring(0, minIndex - 1) + name.substring(minIndex + 3);
+    }
+    var jsIndex = name.indexOf('js');
+    if (jsIndex > -1) {
+        return name.substring(0, jsIndex - 1) + '.nomin.js';
+    }
+    return name + 'nomin.js';
+};
 
 var UnminifiedWebpackPlugin = function(opts) {
     this.options = opts || {};
@@ -10,7 +26,6 @@ var UnminifiedWebpackPlugin = function(opts) {
 UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
     var options = this.options;
     options.test = options.test || /\.js($|\?)/i;
-    console.log(compiler.options.output.path);
 
     var containUgly = compiler.options.plugins.filter(function(plugin) {
         return plugin instanceof webpack.optimize.UglifyJsPlugin;
@@ -21,8 +36,7 @@ UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
     }
 
     compiler.plugin('compilation', function(compilation) {
-        compilation.plugin('additional-chunk-assets', function(chunks) {
-
+        compilation.plugin('additional-chunk-assets', function(chunks, cb) {
             var files = [];
             chunks.forEach(function(chunk) {
                 chunk.files.forEach(function(file) {
@@ -32,8 +46,18 @@ UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
             compilation.additionalChunkAssets.forEach(function(file) {
                 files.push(file);
             });
-            files = files.filter(ModuleFilenameHelpers.matchObject.bind(undefined, options));
-            console.log(compilation.assets['index.bundle.js'].source());
+            files = files.filter(ModuleFilenameHelpers.matchObject.bind(null, options));
+            files.forEach(function(file) {
+                try {
+                    var out = resolve(compiler.options.output.path, getFileName(file));
+                    var asset = compilation.assets[file];
+                    fs.writeFileSync(out, asset.source(), {
+                        encoding: 'utf8'
+                    });
+                } catch (e) {
+                    console.log(e);
+                }
+            });
         });
     });
 };

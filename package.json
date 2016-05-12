@@ -19,5 +19,10 @@
   "bugs": {
     "url": "https://github.com/leftstick/NoMinifiedEmiterPlugin/issues"
   },
-  "homepage": "https://github.com/leftstick/NoMinifiedEmiterPlugin#readme"
+  "homepage": "https://github.com/leftstick/NoMinifiedEmiterPlugin#readme",
+  "devDependencies": {
+    "del": "^2.2.0",
+    "mocha": "^2.4.5",
+    "webpack": "^1.13.0"
+  }
 }
