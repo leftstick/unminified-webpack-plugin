@@ -46,7 +46,7 @@ describe('testing', function() {
         });
     });
 
-    it('ignoring while UglifyJsPlugin specified', function(done) {
+    it('generating while UglifyJsPlugin specified', function(done) {
         var compiler = webpack({
             entry: {
                 index: resolve(curDir, 'simple', 'index.js')
