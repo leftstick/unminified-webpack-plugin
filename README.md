@@ -10,9 +10,15 @@ unminified-webpack-plugin
 
 A `webpack` plugin for generating un-minified JavaScript files along with UglifyJsPlugin.
 
+>This plugin should only be used while you are developing standalone library
+
 ## Why unminified-webpack-plugin ##
 
-Once you'd like to release your library, it's better to release a un-minified version along with uglified one. But it's hard to make it work with normal webpack process. Of course you can have some workaround like: `webpack && webpack --config webpack.config.prod.js`, the cons by doing that are: you have to maintain two `config` files; and cost twice as long as generating one output.
+Maybe you are encountering the same issue as mine, once you are developing a standalone library via `webpack`, it's not possible to generate the uncompressed file along with the minified one. [Here](http://stackoverflow.com/questions/25956937/how-to-build-minified-and-uncompressed-bundle-with-webpack) is the question i found at `stackoverflow`.
+
+As a workaround, you may do something like `webpack && webpack --config webpack.config.prod.js`, but the solution is really ugly and inelegant.
+
+That's why i am here! ^^
 
 ## Installation ##
 
