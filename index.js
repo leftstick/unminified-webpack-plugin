@@ -48,10 +48,8 @@ UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
                 files.push(file);
             });
             files = files.filter(ModuleFilenameHelpers.matchObject.bind(null, options));
-            var extraFiles = [];
             files.forEach(function(file) {
                 var asset = compilation.assets[file];
-                extraFiles.push(getFileName(file));
                 compilation.assets[getFileName(file)] = {
                     source: function() {
                         return asset.source();
@@ -61,10 +59,6 @@ UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
                     }
                 };
             });
-            if (files.length) {
-                chunks[0].files.push.apply(chunks[0].files, extraFiles);
-            }
-
         });
     });
 };
