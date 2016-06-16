@@ -55,6 +55,7 @@ describe('testing', function() {
                 filename: 'bundle.min.js'
             },
             plugins: [
+                new webpack.BannerPlugin('The fucking shit'),
                 new webpack.optimize.UglifyJsPlugin({
                     compress: {
                         warnings: false

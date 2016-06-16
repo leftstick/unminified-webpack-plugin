@@ -48,18 +48,23 @@ UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
                 files.push(file);
             });
             files = files.filter(ModuleFilenameHelpers.matchObject.bind(null, options));
+            var extraFiles = [];
             files.forEach(function(file) {
-                try {
-                    mkdirp.sync(resolve(compiler.options.output.path));
-                    var out = resolve(compiler.options.output.path, getFileName(file));
-                    var asset = compilation.assets[file];
-                    fs.writeFileSync(out, asset.source(), {
-                        encoding: 'utf8'
-                    });
-                } catch (e) {
-                    console.log(e);
-                }
+                var asset = compilation.assets[file];
+                extraFiles.push(getFileName(file));
+                compilation.assets[getFileName(file)] = {
+                    source: function() {
+                        return asset.source();
+                    },
+                    size: function() {
+                        return asset.source().length;
+                    }
+                };
             });
+            if (files.length) {
+                chunks[0].files.push.apply(chunks[0].files, extraFiles);
+            }
+
         });
     });
 };
