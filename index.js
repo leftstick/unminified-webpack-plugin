@@ -1,23 +1,20 @@
 'use strict';
 
 var webpack = require('webpack');
-var fs = require('fs');
-var path = require('path');
-var mkdirp = require('mkdirp');
-var resolve = path.resolve;
 var ModuleFilenameHelpers = require('webpack/lib/ModuleFilenameHelpers');
 
 
-var getFileName = function(name) {
+var getFileName = function(name, opts) {
     var minIndex = name.indexOf('min');
     if (minIndex > -1) {
         return name.substring(0, minIndex - 1) + name.substring(minIndex + 3);
     }
+    var nonmin = opts.postfix || 'nomin';
     var jsIndex = name.indexOf('js');
     if (jsIndex > -1) {
-        return name.substring(0, jsIndex - 1) + '.nomin.js';
+        return name.substring(0, jsIndex - 1) + '.' + nonmin + '.js';
     }
-    return name + 'nomin.js';
+    return name + nonmin + '.js';
 };
 
 var UnminifiedWebpackPlugin = function(opts) {
@@ -50,7 +47,7 @@ UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
             files = files.filter(ModuleFilenameHelpers.matchObject.bind(null, options));
             files.forEach(function(file) {
                 var asset = compilation.assets[file];
-                compilation.assets[getFileName(file)] = {
+                compilation.assets[getFileName(file, options)] = {
                     source: function() {
                         return asset.source();
                     },

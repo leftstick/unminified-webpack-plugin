@@ -71,4 +71,30 @@ describe('testing', function() {
         });
     });
 
+    it('generating while nonmin options specified', function(done) {
+        var compiler = webpack({
+            entry: {
+                index: resolve(curDir, 'simple', 'index.js')
+            },
+            output: {
+                path: resolve(curDir, 'build'),
+                filename: 'bundle.js'
+            },
+            plugins: [
+                new webpack.BannerPlugin('The fucking shit'),
+                new webpack.optimize.UglifyJsPlugin({
+                    compress: {
+                        warnings: false
+                    }
+                }),
+                new UnminifiedWebpackPlugin({postfix: 'nnnmin'})
+            ]
+        });
+
+        compiler.run(function(err, stats) {
+            assert(fileExist(resolve(curDir, 'build', 'bundle.nnnmin.js')));
+            done();
+        });
+    });
+
 });
