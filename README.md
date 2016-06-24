@@ -54,6 +54,37 @@ module.exports = {
 
 By doing as above, you will get two files `library.min.js` and `library.js`. No need execute `webpack` twice, it just works!^^
 
+## Configuration ##
+
+`postfix`: you can specify the `nomin` part as you wish. `nomin` is the default postfix once you haven't specify `min` in `output.filename`. And it can be customized by specifying this option, following is example:
+
+```javascript
+var path = require('path');
+var webpack = require('webpack');
+var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
+
+module.exports = {
+    entry: {
+        index: './src/index.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'library.js'
+    },
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
+        new UnminifiedWebpackPlugin({
+            postfix: 'unmin'
+        })
+    ]
+};
+```
+
+
 ## LICENSE ##
 
 [MIT License](https://raw.githubusercontent.com/leftstick/unminified-webpack-plugin/master/LICENSE)
