@@ -69,7 +69,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'library.js'
+        filename: 'library.js'//no "min" specified
     },
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
@@ -78,11 +78,13 @@ module.exports = {
             }
         }),
         new UnminifiedWebpackPlugin({
-            postfix: 'unmin'
+            postfix: 'unmin'//specify "nomin" postfix
         })
     ]
 };
 ```
+
+>By doing as above, you will get two files `library.js` and `library.unmin.js`
 
 
 ## LICENSE ##
