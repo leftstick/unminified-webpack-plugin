@@ -54,6 +54,8 @@ module.exports = {
 
 By doing as above, you will get two files `library.min.js` and `library.js`. No need execute `webpack` twice, it just works!^^
 
+**Note:** Does not work with `BannerPlugin`, see [this comment](https://github.com/leftstick/unminified-webpack-plugin/issues/1#issuecomment-226413904) for an explanation.
+
 ## Configuration ##
 
 `postfix`: you can specify the `nomin` part as you wish. `nomin` is the default postfix once you haven't specify `min` in `output.filename`. And it can be customized by specifying this option, following is example:
