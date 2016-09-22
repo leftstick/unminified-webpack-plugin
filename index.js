@@ -5,7 +5,7 @@ var ModuleFilenameHelpers = require('webpack/lib/ModuleFilenameHelpers');
 
 
 var getFileName = function(name, opts) {
-    var minIndex = name.indexOf('min');
+    var minIndex = name.lastIndexOf('min');
     if (minIndex > -1) {
         return name.substring(0, minIndex - 1) + name.substring(minIndex + 3);
     }
