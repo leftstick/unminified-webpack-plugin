@@ -71,6 +71,32 @@ describe('testing', function() {
         });
     });
 
+    it('generating while UglifyJsPlugin specified and min in the bundle name', function(done) {
+        var compiler = webpack({
+            entry: {
+                index: resolve(curDir, 'simple', 'index.js')
+            },
+            output: {
+                path: resolve(curDir, 'build'),
+                filename: 'minimal.min.js'
+            },
+            plugins: [
+                new webpack.BannerPlugin('The fucking shit'),
+                new webpack.optimize.UglifyJsPlugin({
+                    compress: {
+                        warnings: false
+                    }
+                }),
+                new UnminifiedWebpackPlugin()
+            ]
+        });
+
+        compiler.run(function(err, stats) {
+            assert(fileExist(resolve(curDir, 'build', 'minimal.js')));
+            done();
+        });
+    });
+
     it('generating while nonmin options specified', function(done) {
         var compiler = webpack({
             entry: {
