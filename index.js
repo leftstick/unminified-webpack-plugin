@@ -5,9 +5,8 @@ var ModuleFilenameHelpers = require('webpack/lib/ModuleFilenameHelpers');
 
 
 var getFileName = function(name, opts) {
-    var minIndex = name.lastIndexOf('min');
-    if (minIndex > -1) {
-        return name.substring(0, minIndex - 1) + name.substring(minIndex + 3);
+    if (name.match(/([-_.]min)[-_.]/)) {
+        return name.replace(/[-_.]min/, '');
     }
     var nonmin = opts.postfix || 'nomin';
     var jsIndex = name.indexOf('js');
