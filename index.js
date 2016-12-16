@@ -8,12 +8,13 @@ var getFileName = function(name, opts) {
     if (name.match(/([-_.]min)[-_.]/)) {
         return name.replace(/[-_.]min/, '');
     }
-    var nonmin = opts.postfix || 'nomin';
-    var jsIndex = name.indexOf('js');
-    if (jsIndex > -1) {
-        return name.substring(0, jsIndex - 1) + '.' + nonmin + '.js';
+
+    var suffix = (opts.postfix || 'nomin') + '.js';
+    if (name.match(/\.js$/)) {
+        return name.replace(/js$/, suffix)
     }
-    return name + nonmin + '.js';
+
+    return name + suffix;
 };
 
 var UnminifiedWebpackPlugin = function(opts) {
