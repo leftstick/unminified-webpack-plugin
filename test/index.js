@@ -45,31 +45,111 @@ describe('testing', function() {
         });
     });
 
-    it('generating while UglifyJsPlugin specified', function(done) {
-        var compiler = webpack({
-            entry: {
-                index: resolve(curDir, 'simple', 'index.js')
-            },
-            output: {
-                path: resolve(curDir, 'build'),
-                filename: 'bundle.min.js'
-            },
-            plugins: [
-                new webpack.BannerPlugin('The fucking shit'),
-                new webpack.optimize.UglifyJsPlugin({
-                    compress: {
-                        warnings: false
-                    }
-                }),
-                new UnminifiedWebpackPlugin()
-            ]
+    describe('generating while UglifyJsPlugin specified', function() {
+
+        it('normal output file name', function(done) {
+            var compiler = webpack({
+                entry: {
+                    index: resolve(curDir, 'simple', 'index.js')
+                },
+                output: {
+                    path: resolve(curDir, 'build'),
+                    filename: 'bundle.min.js'
+                },
+                plugins: [
+                    new webpack.BannerPlugin('The fucking shit'),
+                    new webpack.optimize.UglifyJsPlugin({
+                        compress: {
+                            warnings: false
+                        }
+                    }),
+                    new UnminifiedWebpackPlugin()
+                ]
+            });
+
+            compiler.run(function(err, stats) {
+                assert(fileExist(resolve(curDir, 'build', 'bundle.js')));
+                done();
+            });
         });
 
-        compiler.run(function(err, stats) {
-            assert(fileExist(resolve(curDir, 'build', 'bundle.js')));
-            done();
+        it('admin.js as output', function(done) {
+            var compiler = webpack({
+                entry: {
+                    index: resolve(curDir, 'simple', 'index.js')
+                },
+                output: {
+                    path: resolve(curDir, 'build'),
+                    filename: 'admin.js'
+                },
+                plugins: [
+                    new webpack.optimize.UglifyJsPlugin({
+                        compress: {
+                            warnings: false
+                        }
+                    }),
+                    new UnminifiedWebpackPlugin()
+                ]
+            });
+
+            compiler.run(function(err, stats) {
+                assert(fileExist(resolve(curDir, 'build', 'admin.nomin.js')));
+                done();
+            });
+        });
+
+        it('ad-min.js as output', function(done) {
+            var compiler = webpack({
+                entry: {
+                    index: resolve(curDir, 'simple', 'index.js')
+                },
+                output: {
+                    path: resolve(curDir, 'build'),
+                    filename: 'ad-min.js'
+                },
+                plugins: [
+                    new webpack.optimize.UglifyJsPlugin({
+                        compress: {
+                            warnings: false
+                        }
+                    }),
+                    new UnminifiedWebpackPlugin()
+                ]
+            });
+
+            compiler.run(function(err, stats) {
+                assert(fileExist(resolve(curDir, 'build', 'ad.js')));
+                done();
+            });
+        });
+
+        it('ad-min-1.0.0.js as output', function(done) {
+            var compiler = webpack({
+                entry: {
+                    index: resolve(curDir, 'simple', 'index.js')
+                },
+                output: {
+                    path: resolve(curDir, 'build'),
+                    filename: 'ad-min-1.0.0.js'
+                },
+                plugins: [
+                    new webpack.optimize.UglifyJsPlugin({
+                        compress: {
+                            warnings: false
+                        }
+                    }),
+                    new UnminifiedWebpackPlugin()
+                ]
+            });
+
+            compiler.run(function(err, stats) {
+                assert(fileExist(resolve(curDir, 'build', 'ad-1.0.0.js')));
+                done();
+            });
         });
     });
+
+
 
     it('generating while UglifyJsPlugin specified and min in the bundle name', function(done) {
         var compiler = webpack({

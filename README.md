@@ -54,6 +54,8 @@ module.exports = {
 
 By doing as above, you will get two files `library.min.js` and `library.js`. No need execute `webpack` twice, it just works!^^
 
+>`filename` includes `min`, such as: `ad-min.js`, `ad-min-1.0.js`, will be treated as minified name as well. See [cope with 'min' in names like 'Admin'](https://github.com/leftstick/unminified-webpack-plugin/pull/8)
+
 **Note:** Does not work with `BannerPlugin`, see [this comment](https://github.com/leftstick/unminified-webpack-plugin/issues/1#issuecomment-226413904) for an explanation.
 
 ## Configuration ##
