@@ -203,4 +203,54 @@ describe('testing', function() {
         });
     });
 
+    it('generating while include optione provided', function(done) {
+        var compiler = webpack({
+            entry: {
+                index: resolve(curDir, 'simple', 'index.js')
+            },
+            output: {
+                path: resolve(curDir, 'build'),
+                filename: 'bundle.min.js'
+            },
+            plugins: [
+                new webpack.optimize.UglifyJsPlugin({
+                    compress: {
+                        warnings: false
+                    }
+                }),
+                new UnminifiedWebpackPlugin({include: 'nothing'})
+            ]
+        });
+
+        compiler.run(function(err, stats) {
+            assert(!fileExist(resolve(curDir, 'build', 'bundle.js')));
+            done();
+        });
+    });
+
+    it('generating while exclude optione provided', function(done) {
+        var compiler = webpack({
+            entry: {
+                index: resolve(curDir, 'simple', 'index.js')
+            },
+            output: {
+                path: resolve(curDir, 'build'),
+                filename: 'bundle.min.js'
+            },
+            plugins: [
+                new webpack.optimize.UglifyJsPlugin({
+                    compress: {
+                        warnings: false
+                    }
+                }),
+                new UnminifiedWebpackPlugin({include: /ad.*/})
+            ]
+        });
+
+        compiler.run(function(err, stats) {
+            assert(!fileExist(resolve(curDir, 'build', 'bundle.js')));
+            done();
+        });
+    });
+
 });
