@@ -91,6 +91,7 @@ module.exports = {
 ```
 
 >By doing as above, you will get two files `library.js` and `library.unmin.js`
+
 >`include`, `exclude` just work the same way as `UglifyJsPlugin`
 
 
