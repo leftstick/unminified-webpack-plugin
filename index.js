@@ -1,62 +1,58 @@
-'use strict';
+const webpack = require('webpack');
+const path = require('path');
+const ModuleFilenameHelpers = require('webpack/lib/ModuleFilenameHelpers');
 
-var webpack = require('webpack');
-var ModuleFilenameHelpers = require('webpack/lib/ModuleFilenameHelpers');
-
-
-var getFileName = function(name, opts) {
+const getFileName = (name, ext, opts) => {
     if (name.match(/([-_.]min)[-_.]/)) {
         return name.replace(/[-_.]min/, '');
     }
 
-    var suffix = (opts.postfix || 'nomin') + '.js';
-    if (name.match(/\.js$/)) {
-        return name.replace(/js$/, suffix)
+    const suffix = (opts.postfix || 'nomin') + '.' + ext;
+    if (name.match(new RegExp('\.' + ext + '$'))) {
+        return name.replace(new RegExp(ext), suffix)
     }
 
     return name + suffix;
 };
 
-var UnminifiedWebpackPlugin = function(opts) {
+const UnminifiedWebpackPlugin = function(opts) {
     this.options = opts || {};
 };
 
 UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
-    var options = this.options;
-    options.test = options.test || /\.js($|\?)/i;
+    const options = this.options;
+    options.test = options.test || /\.(js|css)($|\?)/i;
 
-    var containUgly = compiler.options.plugins.filter(function(plugin) {
-        return plugin instanceof webpack.optimize.UglifyJsPlugin;
-    });
+    const containUgly = compiler.options.plugins.filter(plugin => plugin.constructor.name === 'UglifyJsPlugin');
 
     if (!containUgly.length) {
         return console.log('Ignore generating unminified version, since no UglifyJsPlugin provided');
     }
 
-    compiler.plugin('compilation', function(compilation) {
-        compilation.plugin('additional-chunk-assets', function(chunks, cb) {
-            var files = [];
-            chunks.forEach(function(chunk) {
-                chunk.files.forEach(function(file) {
+    compiler.plugin('compilation', (compilation) => {
+        compilation.plugin('additional-assets', (cb) => {
+            const files = [];
+            compilation.chunks.forEach(chunk => {
+                chunk.files.forEach(file => {
                     files.push(file);
                 });
             });
-            compilation.additionalChunkAssets.forEach(function(file) {
+            compilation.additionalChunkAssets.forEach(file => {
                 files.push(file);
             });
-            files = files.filter(ModuleFilenameHelpers.matchObject.bind(null, options));
-            files.forEach(function(file) {
-                var asset = compilation.assets[file];
-                compilation.assets[getFileName(file, options)] = {
-                    source: function() {
-                        return asset.source();
-                    },
-                    size: function() {
-                        return asset.source().length;
-                    }
+
+            const finalFiles = files.filter(ModuleFilenameHelpers.matchObject.bind(null, options));
+            finalFiles.forEach(file => {
+                const asset = compilation.assets[file];
+                const source = asset.source();
+                compilation.assets[getFileName(file, path.extname(file).substr(1), options)] = {
+                    source: () => source,
+                    size: () => source.length
                 };
             });
+            cb();
         });
+
     });
 };
 

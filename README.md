@@ -94,6 +94,7 @@ module.exports = {
 
 >`include`, `exclude` just work the same way as `UglifyJsPlugin`
 
+>Check [working-example](https://github.com/leftstick/unminified-webpack-plugin/blob/master/example/css-pack/README.md) for css assets support
 
 ## LICENSE ##
 

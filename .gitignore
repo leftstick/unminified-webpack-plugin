@@ -4,3 +4,6 @@ node_modules/
 
 #test
 test/build
+
+#example
+example/css-pack/dist
