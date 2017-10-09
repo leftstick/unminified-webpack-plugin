@@ -11,13 +11,21 @@ var resolve = path.resolve;
 
 var curDir = path.resolve(__dirname);
 
-var fileExist = function(filepath) {
+function fileExist(filepath) {
     try {
         return fs.statSync(filepath).isFile();
     } catch (e) {
         return false;
     }
-};
+}
+
+function readFile(file) {
+    try {
+        return fs.readFileSync(file, 'utf8');
+    } catch (e) {
+        return '';
+    }
+}
 
 describe('testing', function() {
 
@@ -249,6 +257,33 @@ describe('testing', function() {
 
         compiler.run(function(err, stats) {
             assert(!fileExist(resolve(curDir, 'build', 'bundle.js')));
+            done();
+        });
+    });
+
+    it('generating while bannerplugin involved', function(done) {
+        var compiler = webpack({
+            entry: {
+                index: resolve(curDir, 'simple', 'index.js')
+            },
+            output: {
+                path: resolve(curDir, 'build'),
+                filename: 'bundle.min.js'
+            },
+            plugins: [
+                new webpack.BannerPlugin('This is a real test'),
+                new webpack.optimize.UglifyJsPlugin({
+                    compress: {
+                        warnings: false
+                    }
+                }),
+                new UnminifiedWebpackPlugin()
+            ]
+        });
+
+        compiler.run(function(err, stats) {
+            assert(fileExist(resolve(curDir, 'build', 'bundle.js')));
+            assert(readFile(resolve(curDir, 'build', 'bundle.js')).startsWith('/*! This is a real test */'));
             done();
         });
     });

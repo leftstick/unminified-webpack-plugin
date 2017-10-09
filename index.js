@@ -42,9 +42,17 @@ UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
             });
 
             const finalFiles = files.filter(ModuleFilenameHelpers.matchObject.bind(null, options));
+
+
+            const bannerPlugin = compiler.options.plugins.find(plugin => plugin.constructor.name === 'BannerPlugin');
+
             finalFiles.forEach(file => {
                 const asset = compilation.assets[file];
-                const source = asset.source();
+                let matchedBanners = [];
+                if (bannerPlugin) {
+                    matchedBanners = [file].filter(ModuleFilenameHelpers.matchObject.bind(null, bannerPlugin.options));
+                }
+                const source = matchedBanners.length ? bannerPlugin.banner + asset.source() : asset.source();
                 compilation.assets[getFileName(file, path.extname(file).substr(1), options)] = {
                     source: () => source,
                     size: () => source.length

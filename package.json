@@ -1,6 +1,6 @@
 {
   "name": "unminified-webpack-plugin",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "A `webpack` plugin for generating un-minified JavaScript files along with UglifyJsPlugin.",
   "main": "index.js",
   "scripts": {
@@ -9,8 +9,8 @@
   "files": [
     "index.js"
   ],
-  "engines" : {
-    "node" : ">=8.0.0"
+  "engines": {
+    "node": ">=8.0.0"
   },
   "repository": {
     "type": "git",
