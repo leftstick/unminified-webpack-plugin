@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const ModuleFilenameHelpers = require('webpack/lib/ModuleFilenameHelpers');
 
-const getFileName = (name, ext, opts) => {
+const getFileName = function(name, ext, opts) {
     if (name.match(/([-_.]min)[-_.]/)) {
         return name.replace(/[-_.]min/, '');
     }
@@ -23,30 +23,34 @@ UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
     const options = this.options;
     options.test = options.test || /\.(js|css)($|\?)/i;
 
-    const containUgly = compiler.options.plugins.filter(plugin => plugin.constructor.name === 'UglifyJsPlugin');
+    const containUgly = compiler.options.plugins.filter(function(plugin) {
+        return plugin.constructor.name === 'UglifyJsPlugin';
+    });
 
     if (!containUgly.length) {
         return console.log('Ignore generating unminified version, since no UglifyJsPlugin provided');
     }
 
-    compiler.plugin('compilation', (compilation) => {
-        compilation.plugin('additional-assets', (cb) => {
+    compiler.plugin('compilation', function(compilation) {
+        compilation.plugin('additional-assets', function(cb) {
             const files = [];
-            compilation.chunks.forEach(chunk => {
-                chunk.files.forEach(file => {
+            compilation.chunks.forEach(function(chunk) {
+                chunk.files.forEach(function(file) {
                     files.push(file);
                 });
             });
-            compilation.additionalChunkAssets.forEach(file => {
+            compilation.additionalChunkAssets.forEach(function(file) {
                 files.push(file);
             });
 
             const finalFiles = files.filter(ModuleFilenameHelpers.matchObject.bind(null, options));
 
 
-            const bannerPlugin = compiler.options.plugins.find(plugin => plugin.constructor.name === 'BannerPlugin');
+            const bannerPlugin = compiler.options.plugins.find(function(plugin) {
+                return plugin.constructor.name === 'BannerPlugin';
+            });
 
-            finalFiles.forEach(file => {
+            finalFiles.forEach(function(file) {
                 const asset = compilation.assets[file];
                 let matchedBanners = [];
                 if (bannerPlugin) {
@@ -54,8 +58,12 @@ UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
                 }
                 const source = matchedBanners.length ? bannerPlugin.banner + asset.source() : asset.source();
                 compilation.assets[getFileName(file, path.extname(file).substr(1), options)] = {
-                    source: () => source,
-                    size: () => source.length
+                    source: function() {
+                        return source;
+                    },
+                    size: function() {
+                        return source.length;
+                    }
                 };
             });
             cb();
