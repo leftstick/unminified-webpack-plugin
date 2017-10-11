@@ -1,6 +1,6 @@
 {
   "name": "unminified-webpack-plugin",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A `webpack` plugin for generating un-minified JavaScript files along with UglifyJsPlugin.",
   "main": "index.js",
   "scripts": {
@@ -10,11 +10,11 @@
     "index.js"
   ],
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=6.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/leftstick/NoMinifiedEmiterPlugin.git"
+    "url": "git+https://github.com/leftstick/unminified-webpack-plugin.git"
   },
   "keywords": [
     "unminified",
@@ -23,9 +23,9 @@
   "author": "Howard.Zuo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/leftstick/NoMinifiedEmiterPlugin/issues"
+    "url": "https://github.com/leftstick/unminified-webpack-plugin/issues"
   },
-  "homepage": "https://github.com/leftstick/NoMinifiedEmiterPlugin#readme",
+  "homepage": "https://github.com/leftstick/unminified-webpack-plugin#readme",
   "devDependencies": {
     "del": "^3.0.0",
     "mocha": "^4.0.1",
