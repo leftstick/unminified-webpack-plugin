@@ -9,7 +9,7 @@ const getFileName = function(name, ext, opts) {
 
     const suffix = (opts.postfix || 'nomin') + '.' + ext;
     if (name.match(new RegExp('\.' + ext + '$'))) {
-        return name.replace(new RegExp(ext), suffix)
+        return name.replace(new RegExp(ext + '$'), suffix)
     }
 
     return name + suffix;
