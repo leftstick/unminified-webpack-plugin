@@ -155,6 +155,31 @@ describe('testing', function() {
                 done();
             });
         });
+
+        it('Admin/js/Admin.js as output', function(done) {
+            var compiler = webpack({
+                entry: {
+                    index: resolve(curDir, 'simple', 'index.js')
+                },
+                output: {
+                    path: resolve(curDir, 'build'),
+                    filename: 'Admin/js/Admin.js'
+                },
+                plugins: [
+                    new webpack.optimize.UglifyJsPlugin({
+                        compress: {
+                            warnings: false
+                        }
+                    }),
+                    new UnminifiedWebpackPlugin()
+                ]
+            });
+
+            compiler.run(function(err, stats) {
+                assert(fileExist(resolve(curDir, 'build', 'Admin/js/Admin.nomin.js')));
+                done();
+            });
+        });
     });
 
 
