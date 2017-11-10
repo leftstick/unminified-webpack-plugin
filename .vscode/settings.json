@@ -1,4 +1,6 @@
-// Place your settings in this file to overwrite default and user settings.
 {
-    "editor.formatOnSave": true
+  // Place your settings in this file to overwrite default and user settings.
+  "editor.formatOnSave": true,
+  "json.format.enable": false,
+  "prettier.jsonEnable": []
 }
