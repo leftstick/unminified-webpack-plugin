@@ -35,6 +35,7 @@ describe('testing', function() {
 
     it('ignoring while no UglifyJsPlugin specified', function(done) {
         var compiler = webpack({
+            mode: 'development',
             entry: {
                 index: resolve(curDir, 'simple', 'index.js')
             },
@@ -66,11 +67,6 @@ describe('testing', function() {
                 },
                 plugins: [
                     new webpack.BannerPlugin('The fucking shit'),
-                    new webpack.optimize.UglifyJsPlugin({
-                        compress: {
-                            warnings: false
-                        }
-                    }),
                     new UnminifiedWebpackPlugin()
                 ]
             });
@@ -91,11 +87,6 @@ describe('testing', function() {
                     filename: 'admin.js'
                 },
                 plugins: [
-                    new webpack.optimize.UglifyJsPlugin({
-                        compress: {
-                            warnings: false
-                        }
-                    }),
                     new UnminifiedWebpackPlugin()
                 ]
             });
@@ -116,11 +107,6 @@ describe('testing', function() {
                     filename: 'ad-min.js'
                 },
                 plugins: [
-                    new webpack.optimize.UglifyJsPlugin({
-                        compress: {
-                            warnings: false
-                        }
-                    }),
                     new UnminifiedWebpackPlugin()
                 ]
             });
@@ -141,11 +127,6 @@ describe('testing', function() {
                     filename: 'ad-min-1.0.0.js'
                 },
                 plugins: [
-                    new webpack.optimize.UglifyJsPlugin({
-                        compress: {
-                            warnings: false
-                        }
-                    }),
                     new UnminifiedWebpackPlugin()
                 ]
             });
@@ -166,11 +147,6 @@ describe('testing', function() {
                     filename: 'Admin/js/Admin.js'
                 },
                 plugins: [
-                    new webpack.optimize.UglifyJsPlugin({
-                        compress: {
-                            warnings: false
-                        }
-                    }),
                     new UnminifiedWebpackPlugin()
                 ]
             });
@@ -195,11 +171,6 @@ describe('testing', function() {
             },
             plugins: [
                 new webpack.BannerPlugin('The fucking shit'),
-                new webpack.optimize.UglifyJsPlugin({
-                    compress: {
-                        warnings: false
-                    }
-                }),
                 new UnminifiedWebpackPlugin()
             ]
         });
@@ -221,11 +192,6 @@ describe('testing', function() {
             },
             plugins: [
                 new webpack.BannerPlugin('The fucking shit'),
-                new webpack.optimize.UglifyJsPlugin({
-                    compress: {
-                        warnings: false
-                    }
-                }),
                 new UnminifiedWebpackPlugin({postfix: 'nnnmin'})
             ]
         });
@@ -246,11 +212,6 @@ describe('testing', function() {
                 filename: 'bundle.min.js'
             },
             plugins: [
-                new webpack.optimize.UglifyJsPlugin({
-                    compress: {
-                        warnings: false
-                    }
-                }),
                 new UnminifiedWebpackPlugin({include: 'nothing'})
             ]
         });
@@ -271,11 +232,6 @@ describe('testing', function() {
                 filename: 'bundle.min.js'
             },
             plugins: [
-                new webpack.optimize.UglifyJsPlugin({
-                    compress: {
-                        warnings: false
-                    }
-                }),
                 new UnminifiedWebpackPlugin({include: /ad.*/})
             ]
         });
@@ -297,11 +253,6 @@ describe('testing', function() {
             },
             plugins: [
                 new webpack.BannerPlugin('This is a real test'),
-                new webpack.optimize.UglifyJsPlugin({
-                    compress: {
-                        warnings: false
-                    }
-                }),
                 new UnminifiedWebpackPlugin()
             ]
         });

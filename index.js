@@ -27,12 +27,12 @@ UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
         return plugin.constructor.name === 'UglifyJsPlugin';
     });
 
-    if (!containUgly.length) {
+    if (!containUgly.length && compiler.options.mode === 'development') {
         return console.log('Ignore generating unminified version, since no UglifyJsPlugin provided');
     }
 
     compiler.hooks.compilation.tap('UnminifiedWebpackPlugin', function(compilation) {
-        compilation.hooks.additionalAssets.tap('UnminifiedWebpackPlugin', function(cb) {
+        compilation.hooks.additionalAssets.tap('UnminifiedWebpackPlugin', function() {
             const files = [];
             compilation.chunks.forEach(function(chunk) {
                 chunk.files.forEach(function(file) {
@@ -66,7 +66,6 @@ UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
                     }
                 };
             });
-            cb();
         });
 
     });
