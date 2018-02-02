@@ -31,8 +31,8 @@ UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
         return console.log('Ignore generating unminified version, since no UglifyJsPlugin provided');
     }
 
-    compiler.plugin('compilation', function(compilation) {
-        compilation.plugin('additional-assets', function(cb) {
+    compiler.hooks.compilation.tap('UnminifiedWebpackPlugin', function(compilation) {
+        compilation.hooks.additionalAssets.tap('UnminifiedWebpackPlugin', function(cb) {
             const files = [];
             compilation.chunks.forEach(function(chunk) {
                 chunk.files.forEach(function(file) {
