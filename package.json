@@ -1,6 +1,6 @@
 {
   "name": "unminified-webpack-plugin",
-  "version": "1.4.2",
+  "version": "2.0.0",
   "description": "A `webpack` plugin for generating un-minified JavaScript files along with UglifyJsPlugin.",
   "main": "index.js",
   "scripts": {
@@ -28,8 +28,8 @@
   "homepage": "https://github.com/leftstick/unminified-webpack-plugin#readme",
   "devDependencies": {
     "del": "^3.0.0",
-    "mocha": "^4.0.1",
-    "webpack": "^4.0.0-beta.0"
+    "mocha": "^5.0.2",
+    "webpack": "^4.0.0"
   },
   "peerDependencies": {
     "webpack": "^4.0.0"

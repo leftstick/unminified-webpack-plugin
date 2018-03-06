@@ -42,11 +42,6 @@ module.exports = {
         filename: 'library.min.js'
     },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }),
         new UnminifiedWebpackPlugin()
     ]
 };
@@ -74,11 +69,6 @@ module.exports = {
         filename: 'library.js'//no "min" specified
     },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }),
         new UnminifiedWebpackPlugin({
             postfix: 'unmin'//specify "nomin" postfix,
             include: /polyfill.*/,

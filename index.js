@@ -28,7 +28,7 @@ UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
     });
 
     if (!containUgly.length && compiler.options.mode === 'development') {
-        return console.log('Ignore generating unminified version, since no UglifyJsPlugin provided');
+        return console.log('Ignore generating unminified version, since no UglifyJsPlugin provided, or running in development mode');
     }
 
     compiler.hooks.compilation.tap('UnminifiedWebpackPlugin', function(compilation) {
