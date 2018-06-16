@@ -56,7 +56,8 @@ UnminifiedWebpackPlugin.prototype.apply = function(compiler) {
                 if (bannerPlugin) {
                     matchedBanners = [file].filter(ModuleFilenameHelpers.matchObject.bind(null, bannerPlugin.options));
                 }
-                const source = matchedBanners.length ? bannerPlugin.banner + asset.source() : asset.source();
+                
+                const source = matchedBanners.length ? bannerPlugin.banner(bannerPlugin.options) + asset.source() : asset.source();
                 compilation.assets[getFileName(file, path.extname(file).substr(1), options)] = {
                     source: function() {
                         return source;
