@@ -70,7 +70,7 @@ module.exports = {
     },
     plugins: [
         new UnminifiedWebpackPlugin({
-            postfix: 'unmin'//specify "nomin" postfix,
+            postfix: 'unmin',//specify "nomin" postfix
             include: /polyfill.*/,
             exclude: /test.*/
         })
