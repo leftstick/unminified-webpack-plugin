@@ -8,7 +8,7 @@ unminified-webpack-plugin
 ![][license-url]
 
 
-A `webpack` plugin for generating un-minified JavaScript files along with UglifyJsPlugin.
+A `webpack` plugin for generating un-minified JavaScript files along with `minimize`.
 
 >This plugin should only be used while you are developing standalone library
 
@@ -29,11 +29,12 @@ npm install --save-dev unminified-webpack-plugin
 ## Usage ##
 
 ```javascript
-var path = require('path');
-var webpack = require('webpack');
-var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
 
 module.exports = {
+    mode: 'production',
     entry: {
         index: './src/index.js'
     },
@@ -56,9 +57,9 @@ By doing as above, you will get two files `library.min.js` and `library.js`. No 
 `postfix`: you can specify the `nomin` part as you wish. `nomin` is the default postfix once you haven't specify `min` in `output.filename`. And it can be customized by specifying this option, following is example:
 
 ```javascript
-var path = require('path');
-var webpack = require('webpack');
-var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
 
 module.exports = {
     entry: {
