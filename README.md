@@ -7,6 +7,8 @@ unminified-webpack-plugin
 ![][dt-url]
 ![][license-url]
 
+> `webpack@4` and `webpack@5` is now supported.
+
 
 A `webpack` plugin for generating un-minified JavaScript files along with `minimize`.
 
