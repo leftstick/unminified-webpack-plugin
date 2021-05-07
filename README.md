@@ -94,7 +94,7 @@ module.exports = {
 
 [npm-url]: https://npmjs.org/package/unminified-webpack-plugin
 [npm-image]: https://badge.fury.io/js/unminified-webpack-plugin.png
-[travis-url]:https://api.travis-ci.org/leftstick/unminified-webpack-plugin.svg?branch=master
+[travis-url]: https://travis-ci.com/leftstick/unminified-webpack-plugin.svg?branch=master
 [david-url]: https://david-dm.org/leftstick/unminified-webpack-plugin.png
 [dt-url]:https://img.shields.io/npm/dt/unminified-webpack-plugin.svg
 [license-url]:https://img.shields.io/npm/l/unminified-webpack-plugin.svg
